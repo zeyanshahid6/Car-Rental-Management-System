@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="CarRentalManagementSystem/CarRentalManagementSystem.csproj" Id="ffb545df-e746-4910-916f-699ce777dc0d" />
+  <Project Path="CarRentalSystem.Tests/CarRentalSystem.Tests.csproj" Id="437a719c-bec9-4979-b9d4-2d1c100e03f2" />
+</Solution>
