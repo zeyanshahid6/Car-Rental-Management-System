@@ -25,7 +25,11 @@ jobs:
       - name: Build Solution
         run: msbuild CarRentalManagementSystem.slnx /p:Configuration=Release
 
+      - name: Install Test Platform
+        run: nuget install Microsoft.TestPlatform -Version 17.11.1 -OutputDirectory testrunner
+
       - name: Run Tests
-        shell: cmd
+        shell: powershell
         run: |
-          "%VSTEST%" **\bin\Release\*Tests.dll
+          $vstest = Get-ChildItem -Path "testrunner" -Recurse -Filter "vstest.console.exe" | Select-Object -First 1
+          & $vstest.FullName "**\bin\Release\*Tests.dll"
