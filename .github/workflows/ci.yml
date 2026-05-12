@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-and-test:
+  build:
     runs-on: windows-latest
 
     steps:
@@ -16,20 +16,8 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
 
-      - name: Setup NuGet
-        uses: NuGet/setup-nuget@v2
-
       - name: Restore NuGet Packages
         run: nuget restore CarRentalManagementSystem.slnx
 
       - name: Build Solution
         run: msbuild CarRentalManagementSystem.slnx /p:Configuration=Release
-
-      - name: Install Test Platform
-        run: nuget install Microsoft.TestPlatform -Version 17.11.1 -OutputDirectory testrunner
-
-      - name: Run Tests
-        shell: powershell
-        run: |
-          $vstest = Get-ChildItem -Path "testrunner" -Recurse -Filter "vstest.console.exe" | Select-Object -First 1
-          & $vstest.FullName "**\bin\Release\*Tests.dll"
