@@ -2,29 +2,30 @@ name: Car Rental System CI
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   build-and-test:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v2
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
 
-    - name: Setup NuGet
-      uses: NuGet/setup-nuget@v2
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v2
 
-    - name: Restore NuGet Packages
-      run: nuget restore CarRentalManagementSystem.slnx
+      - name: Restore NuGet Packages
+        run: nuget restore CarRentalManagementSystem.slnx
 
-    - name: Build Solution
-      run: msbuild CarRentalManagementSystem.slnx /p:Configuration=Release
-      
-     - name: Run Tests
-  shell: cmd
-  run: |
-    "%VSTEST%" **\bin\Release\*Tests.dll
+      - name: Build Solution
+        run: msbuild CarRentalManagementSystem.slnx /p:Configuration=Release
+
+      - name: Run Tests
+        shell: cmd
+        run: |
+          "%VSTEST%" **\bin\Release\*Tests.dll
